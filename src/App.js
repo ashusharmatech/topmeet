@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Landing from './container/Landing/Landing';
 import Login from './container/Login/Login';
 import PreferencesChoice from './container/PreferencesChoice/PreferencesChoice';
@@ -7,10 +7,6 @@ import UserProfile from './container/UserProfile/UserProfile';
 import { UserProvider } from './context/UserContext';
 
 const App = () => {
-
-  useEffect(() => {
-
-  }, []);
 
   return (
     <UserProvider>
