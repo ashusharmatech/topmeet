@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
+import Tag from './Tag';
 
 const PreferenceCard = ({ user }) => {
 
@@ -33,18 +34,14 @@ const PreferenceCard = ({ user }) => {
             <div className="px-6 py-4">
                 <div className="font-bold mb-2">Roles: </div>
                 {selectedRoles && selectedRoles.map((e) => 
-                    <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blue-900 bg-blue-200 uppercase last:mr-1 mr-3" key={e.id}>
-                        {e.name}
-                    </span>
+                    <Tag label={e.name} key={e.id}></Tag>
                 )}
             </div>
             
             <div className="px-6 py-4">
                 <div className="font-bold mb-2">Industries: </div>
                 {selectedIndustries && selectedIndustries.map((e) => 
-                    <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full  text-blue-900 bg-blue-200 uppercase last:mr-0 mr-1" key={e.id}>
-                        {e.name}
-                    </span>
+                    <Tag label={e.name} key={e.id}></Tag>
                 )}
             </div>
             <div className="px-6 py-4">
