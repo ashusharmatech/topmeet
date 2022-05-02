@@ -38,7 +38,7 @@ export const UserProvider = ({ children }) => {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         };
-        fetch('http://localhost:8080/api/users/google/' + googleid)
+        fetch('http://localhost:8080/api/users/google/' + googleid, requestOptions)
             .then((res) => res.json())
             .then((data) => {
                 setCurrentUser(data)
@@ -54,7 +54,7 @@ export const UserProvider = ({ children }) => {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         };
-        fetch('http://localhost:8080/api/profileInfos/user/' + userid)
+        fetch('http://localhost:8080/api/profileInfos/user/' + userid, requestOptions)
             .then((res) => res.json())
             .then((data) => {
                 setProfile(data)
@@ -114,7 +114,7 @@ export const UserProvider = ({ children }) => {
         fetch('http://localhost:8080/api/slot/next', requestOptions)
             .then((res) => res.json())
             .then((data) => {
-                console.log("Allowed "+JSON.stringify(data));
+                console.log("Allowed " + JSON.stringify(data));
                 setAllowedSlots(data);
                 setLoading(false);
             })
@@ -206,6 +206,7 @@ export const UserProvider = ({ children }) => {
 
 
     const updateAvailability = async (userid, payload) => {
+        console.log("Payload "+JSON.stringify(payload));
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -214,13 +215,13 @@ export const UserProvider = ({ children }) => {
         fetch('http://localhost:8080/api/availability/user/' + userid, requestOptions)
             .then((res) => res.json())
             .then((data) => {
-                data = data.map(({slot:{id}, date}) => ({slot:{id}, date})); 
+                data = data.map(({ slot: { id }, date }) => ({ slot: { id }, date }));
                 setAvailability(data);
                 setLoading(false);
             })
     }
 
-    
+
     const getAvailability = async (userid) => {
         const requestOptions = {
             method: 'GET',
@@ -229,7 +230,7 @@ export const UserProvider = ({ children }) => {
         fetch('http://localhost:8080/api/availability/user/' + userid, requestOptions)
             .then((res) => res.json())
             .then((data) => {
-                data = data.map(({slot:{id}, date}) => ({slot:{id}, date})); 
+                data = data.map(({ slot: { id }, date }) => ({ slot: { id }, date }));
                 setAvailability(data);
                 setLoading(false);
             })

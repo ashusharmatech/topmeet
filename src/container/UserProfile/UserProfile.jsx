@@ -16,7 +16,13 @@ import AvailibilityCard from '../Availibility/AvailibilityCard';
 const UserProfile = () => {
   const navigate = useNavigate();
 
-  const { currentUser, fetchUserByGoogleId, preference, getPreference } = useContext(UserContext);
+  const { currentUser, fetchUserByGoogleId, preference, getPreference, getAvailability, availability} = useContext(UserContext);
+
+  useEffect(() => {
+    if (currentUser) {
+        getAvailability(currentUser?.id);
+    }
+}, [currentUser]);
 
 
   useEffect(() => {
@@ -56,7 +62,7 @@ const UserProfile = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 my-12 mx-12 w-2xl container px-2 mx-auto">
           <aside>
             {currentUser && <UserIntroCard user={currentUser}></UserIntroCard>}        
-            {currentUser && <AvailibilityCard user={currentUser}></AvailibilityCard>}        
+            {availability && <AvailibilityCard user={currentUser} availability={availability}></AvailibilityCard>}        
           </aside>
         </div>
       </div>

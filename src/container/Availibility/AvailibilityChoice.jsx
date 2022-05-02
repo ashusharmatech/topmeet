@@ -49,7 +49,10 @@ const AvailibilityChoice = () => {
         return self.indexOf(value) === index
     }
 
-
+    const skipThisWeek = () => {
+        updateAvailability(currentUser.id, []);
+        navigate("/profile");
+    }
     const updateSlotData = () => {
         var payload = [];
         const dates = selectedSlots.map(e => e.date);
@@ -96,7 +99,7 @@ const AvailibilityChoice = () => {
 
                                 <div className="flex items-center justify-center py-10 m-2">
                                     <h1 className="text-xl font-bold pt-8 lg:pt-0">Too busy this time? </h1>
-                                    <button className="underline font-bold text-blue-900 hover:text-orange-500 py-2 px-4 rounded-full" onClick={() => updateSlotData()} >
+                                    <button className="underline font-bold text-blue-900 hover:text-orange-500 py-2 px-4 rounded-full" onClick={() => skipThisWeek()} >
                                         Skip this Week
                                     </button>
                                 </div>
