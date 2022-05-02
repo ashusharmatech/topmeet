@@ -1,13 +1,22 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../component/Navbar';
+import UserIntroCard from '../../component/UserIntroCard';
+import ObjectiveCard from '../../component/ObjectiveCard';
+
 import UserContext from '../../context/UserContext';
 import PreferenceCard from './PreferenceCard';
+
 import UserCard from './UserCard';
+import { find, concat, reject } from 'lodash';
+
+
 
 const UserProfile = () => {
   const navigate = useNavigate();
-  const { currentUser, fetchUserByGoogleId } = useContext(UserContext);
+
+  const { currentUser, fetchUserByGoogleId, preference, getPreference } = useContext(UserContext);
+
 
   useEffect(() => {
     const _user = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear()
@@ -17,18 +26,37 @@ const UserProfile = () => {
     fetchUserByGoogleId(_user?.googleId);
   }, []);
 
+
+  useEffect(() => {
+    if (currentUser) {
+      getPreference(currentUser?.id);
+    }
+  }, [currentUser]);
+
+
+  useEffect(() => {
+
+  }, [preference]);
+
   return (
     <div>
       <Navbar></Navbar>
-      <div className='flex flex-row py-20'>
-        <div className="lg:basic-1/2 md:basic-1/4 w-full rounded-lg shadow-2xl bg-white mx-6">
-          {currentUser && <UserCard user={currentUser}></UserCard>}
+      <div className='flex place-content-center bg-indigo-500  py-20'>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 my-12 mx-12 w-2xl container px-2 mx-auto">
+          <div className="rounded-lg shadow-2xl bg-white ">
+            {currentUser && <UserCard user={currentUser}></UserCard>}
+          </div>
+          <div className="rounded-lg shadow-2xl bg-white ">
+            {currentUser && <PreferenceCard user={currentUser}></PreferenceCard>}
+          </div>
         </div>
-        <div className="lg:basis-1/4 hover:basic-1 rounded-lg ">
-          {currentUser && <PreferenceCard user={currentUser}></PreferenceCard>}
-        </div>
-        <div className="lg:basis-1/4 sm:basic-1">
-          <></>
+      </div>
+      <div className='flex place-content-center bg-cyan-600 p-5'>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 my-12 mx-12 w-2xl container px-2 mx-auto">
+          <aside>
+            {currentUser && <UserIntroCard user={currentUser}></UserIntroCard>}        
+            {/* {currentUser && <ObjectiveCard title="Objective" elements={allObjectives} user={currentUser} selectedElements={selectedObjective} update={update} setSelectedElements={setSelectedObjective}></ObjectiveCard>} */}
+          </aside>
         </div>
       </div>
     </div>

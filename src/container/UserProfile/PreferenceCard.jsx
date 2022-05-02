@@ -8,16 +8,17 @@ const PreferenceCard = ({ user }) => {
     const { currentUser, getPreference, preference } = useContext(UserContext);
     const [selectedRoles, setSelectedRoles] = useState([]);
     const [selectedIndustries, setSelectedIndustries] = useState([]);
+    const [selectedObjectives, setSelectedObjectives] = useState([]);  
 
 
     useEffect(() => {
         getPreference(currentUser?.id);
-
     }, []);
 
     useEffect(() => {
         setSelectedIndustries(preference?.industries);
         setSelectedRoles(preference?.roles);
+        setSelectedObjectives(preference?.objectives)
     }, [preference]);
 
     const navigate = useNavigate();
@@ -37,10 +38,15 @@ const PreferenceCard = ({ user }) => {
                     <Tag label={e.name} key={e.id}></Tag>
                 )}
             </div>
-            
             <div className="px-6 py-4">
                 <div className="font-bold mb-2">Industries: </div>
                 {selectedIndustries && selectedIndustries.map((e) => 
+                    <Tag label={e.name} key={e.id}></Tag>
+                )}
+            </div>
+            <div className="px-6 py-4">
+                <div className="font-bold mb-2">Objectives: </div>
+                {selectedObjectives && selectedObjectives.map((e) => 
                     <Tag label={e.name} key={e.id}></Tag>
                 )}
             </div>

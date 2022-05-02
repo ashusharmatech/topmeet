@@ -14,10 +14,12 @@ export const UserProvider = ({ children }) => {
     const [allRoles, setAllRoles] = useState([]);
     const [allIndustries, setAllIndustries] = useState([]);
     const [preference, setPreference] = useState({});
+    const [allObjectives, setAllObjectives] = useState([]);
 
     useEffect(() => {
         fetchAllRoles();
         fetchAllIndustries();
+        fetchAllObjectives();
     }, [])
 
     const fetchUser = async () => {
@@ -69,6 +71,20 @@ export const UserProvider = ({ children }) => {
             .then((res) => res.json())
             .then((data) => {
                 setAllRoles(data)
+                setLoading(false)
+            })
+    }
+
+    
+    const fetchAllObjectives = async () => {
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        };
+        fetch('http://localhost:8080/api/objective', requestOptions)
+            .then((res) => res.json())
+            .then((data) => {
+                setAllObjectives(data)
                 setLoading(false)
             })
     }
@@ -143,11 +159,12 @@ export const UserProvider = ({ children }) => {
             })
     }
 
-    const updatePreference = async (userid, roles, industries) => {
+    const updatePreference = async (userid, roles, industries, objectives) => {
+        console.log("Updating the data "+userid+" "+JSON.stringify(roles)+" "+JSON.stringify(industries)+" "+JSON.stringify(objectives));
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ roles, industries })
+            body: JSON.stringify({ roles, industries, objectives })
         };
         fetch('http://localhost:8080/api/preference/user/' + userid, requestOptions)
             .then((res) => res.json())
@@ -187,7 +204,9 @@ export const UserProvider = ({ children }) => {
         allIndustries,
         updatePreference,
         getPreference,
-        preference
+        preference,
+        fetchAllObjectives,
+        allObjectives
     }}>
         {children}
     </UserContext.Provider>

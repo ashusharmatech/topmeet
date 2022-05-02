@@ -7,11 +7,11 @@ import { find, concat, reject } from 'lodash';
 
 const PreferencesChoice = () => {
   const navigate = useNavigate();
-  const { currentUser, fetchUserByGoogleId, allRoles, allIndustries, updatePreference, getPreference, preference } = useContext(UserContext);
+  const { currentUser, fetchUserByGoogleId, allRoles, allObjectives, allIndustries, updatePreference, getPreference, preference } = useContext(UserContext);
 
   const [selectedRoles, setSelectedRoles] = useState([]);
   const [selectedIndustries, setSelectedIndustries] = useState([]);
-
+  const [selectedObjectives, setSelectedObjectives] = useState([]);  
   useEffect(() => {
     const _user = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear()
     if (_user === undefined || _user === null || _user.googleId === undefined || _user.googleId === null) {
@@ -31,6 +31,7 @@ const PreferencesChoice = () => {
   useEffect(() => {
     setSelectedIndustries(preference?.industries);
     setSelectedRoles(preference?.roles);
+    setSelectedObjectives(preference?.objectives)
   }, [preference]);
 
   const update = (value, selected, setSelectedElements) => {
@@ -45,7 +46,7 @@ const PreferencesChoice = () => {
 
 
   const updatePreferenceData = () => {
-    updatePreference(currentUser.id, selectedRoles.map(e => e.id), selectedIndustries.map(e => e.id));
+    updatePreference(currentUser.id, selectedRoles.map(e => e.id), selectedIndustries.map(e => e.id), selectedObjectives.map(e => e.id));
     navigate("/profile");
   };
 
@@ -67,6 +68,8 @@ const PreferencesChoice = () => {
                 <div className="pt-12 pb-8">
                   {selectedRoles && <Subcard title="Roles" elements={allRoles} selectedElements={selectedRoles} update={update} setSelectedElements={setSelectedRoles}></Subcard>}
                   {selectedIndustries && <Subcard title="Industries" elements={allIndustries} selectedElements={selectedIndustries} update={update} setSelectedElements={setSelectedIndustries}></Subcard>}
+                  {selectedObjectives && <Subcard title="Objectives" elements={allObjectives} selectedElements={selectedObjectives} update={update} setSelectedElements={setSelectedObjectives}></Subcard>}
+
                 </div>
                 <div className="flex items-center justify-between py-10">
                   <button className="bg-purple-500 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-full" onClick={() => updatePreferenceData()} >
