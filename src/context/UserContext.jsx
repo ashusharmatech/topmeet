@@ -14,12 +14,15 @@ export const UserProvider = ({ children }) => {
     const [allRoles, setAllRoles] = useState([]);
     const [allIndustries, setAllIndustries] = useState([]);
     const [preference, setPreference] = useState({});
+    const [availability, setAvailability] = useState([]);
     const [allObjectives, setAllObjectives] = useState([]);
+    const [allowedSlots, setAllowedSlots] = useState([]);
 
     useEffect(() => {
         fetchAllRoles();
         fetchAllIndustries();
         fetchAllObjectives();
+        fetchAllowedSlots();
     }, [])
 
     const fetchUser = async () => {
@@ -75,7 +78,7 @@ export const UserProvider = ({ children }) => {
             })
     }
 
-    
+
     const fetchAllObjectives = async () => {
         const requestOptions = {
             method: 'GET',
@@ -99,6 +102,21 @@ export const UserProvider = ({ children }) => {
             .then((data) => {
                 setAllIndustries(data)
                 setLoading(false)
+            })
+    }
+
+
+    const fetchAllowedSlots = async () => {
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        };
+        fetch('http://localhost:8080/api/slot/next', requestOptions)
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("Allowed "+JSON.stringify(data));
+                setAllowedSlots(data);
+                setLoading(false);
             })
     }
 
@@ -160,7 +178,6 @@ export const UserProvider = ({ children }) => {
     }
 
     const updatePreference = async (userid, roles, industries, objectives) => {
-        console.log("Updating the data "+userid+" "+JSON.stringify(roles)+" "+JSON.stringify(industries)+" "+JSON.stringify(objectives));
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -188,6 +205,38 @@ export const UserProvider = ({ children }) => {
     }
 
 
+    const updateAvailability = async (userid, payload) => {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        };
+        fetch('http://localhost:8080/api/availability/user/' + userid, requestOptions)
+            .then((res) => res.json())
+            .then((data) => {
+                data = data.map(({slot:{id}, date}) => ({slot:{id}, date})); 
+                setAvailability(data);
+                setLoading(false);
+            })
+    }
+
+    
+    const getAvailability = async (userid) => {
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        };
+        fetch('http://localhost:8080/api/availability/user/' + userid, requestOptions)
+            .then((res) => res.json())
+            .then((data) => {
+                data = data.map(({slot:{id}, date}) => ({slot:{id}, date})); 
+                setAvailability(data);
+                setLoading(false);
+            })
+    }
+
+
+
 
     return <UserContext.Provider value={{
         isLoading,
@@ -206,7 +255,12 @@ export const UserProvider = ({ children }) => {
         getPreference,
         preference,
         fetchAllObjectives,
-        allObjectives
+        allObjectives,
+        allowedSlots,
+        getAvailability,
+        availability,
+        setAvailability,
+        updateAvailability
     }}>
         {children}
     </UserContext.Provider>

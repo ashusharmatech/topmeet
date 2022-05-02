@@ -9,6 +9,7 @@ import PreferenceCard from './PreferenceCard';
 
 import UserCard from './UserCard';
 import { find, concat, reject } from 'lodash';
+import AvailibilityCard from '../Availibility/AvailibilityCard';
 
 
 
@@ -46,7 +47,7 @@ const UserProfile = () => {
           <div className="rounded-lg shadow-2xl bg-white ">
             {currentUser && <UserCard user={currentUser}></UserCard>}
           </div>
-          <div className="rounded-lg shadow-2xl bg-white ">
+          <div>
             {currentUser && <PreferenceCard user={currentUser}></PreferenceCard>}
           </div>
         </div>
@@ -55,7 +56,7 @@ const UserProfile = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 my-12 mx-12 w-2xl container px-2 mx-auto">
           <aside>
             {currentUser && <UserIntroCard user={currentUser}></UserIntroCard>}        
-            {/* {currentUser && <ObjectiveCard title="Objective" elements={allObjectives} user={currentUser} selectedElements={selectedObjective} update={update} setSelectedElements={setSelectedObjective}></ObjectiveCard>} */}
+            {currentUser && <AvailibilityCard user={currentUser}></AvailibilityCard>}        
           </aside>
         </div>
       </div>
