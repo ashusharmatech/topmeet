@@ -16,13 +16,13 @@ import AvailibilityCard from '../Availibility/AvailibilityCard';
 const UserProfile = () => {
   const navigate = useNavigate();
 
-  const { currentUser, fetchUserByGoogleId, preference, getPreference, getAvailability, availability} = useContext(UserContext);
+  const { currentUser, fetchUserByGoogleId, preference, getPreference, getAvailability, availability } = useContext(UserContext);
 
   useEffect(() => {
     if (currentUser) {
-        getAvailability(currentUser?.id);
+      getAvailability(currentUser?.id);
     }
-}, [currentUser]);
+  }, [currentUser]);
 
 
   useEffect(() => {
@@ -44,15 +44,19 @@ const UserProfile = () => {
   useEffect(() => {
 
   }, [preference]);
+  
 
   return (
     <div>
       <Navbar></Navbar>
-      <div className='flex place-content-center bg-indigo-500  py-20'>
+      <div className='flex place-content-center bg-indigo-500 p-20'>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 my-12 mx-12 w-2xl container px-2 mx-auto">
-          <div className="rounded-lg shadow-2xl bg-white ">
-            {currentUser && <UserCard user={currentUser}></UserCard>}
-          </div>
+            <aside>
+
+              {currentUser && <UserIntroCard user={currentUser}></UserIntroCard>}
+              {availability && <AvailibilityCard user={currentUser} availability={availability}></AvailibilityCard>}
+            </aside>
+
           <div>
             {currentUser && <PreferenceCard user={currentUser}></PreferenceCard>}
           </div>
@@ -61,8 +65,7 @@ const UserProfile = () => {
       <div className='flex place-content-center bg-cyan-600 p-5'>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 my-12 mx-12 w-2xl container px-2 mx-auto">
           <aside>
-            {currentUser && <UserIntroCard user={currentUser}></UserIntroCard>}        
-            {availability && <AvailibilityCard user={currentUser} availability={availability}></AvailibilityCard>}        
+
           </aside>
         </div>
       </div>

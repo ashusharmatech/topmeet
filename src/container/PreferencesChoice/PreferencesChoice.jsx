@@ -27,6 +27,7 @@ const PreferencesChoice = () => {
       getPreference(currentUser?.id);
     }
   }, [currentUser]);
+  
 
   useEffect(() => {
     setSelectedIndustries(preference?.industries);

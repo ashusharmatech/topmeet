@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import AvailibilityChoice from './container/Availibility/AvailibilityChoice';
 import Feed from './container/Feed/Feed';
+import Introduction from './container/Introduction/Introduction';
 import Landing from './container/Landing/Landing';
 import Login from './container/Login/Login';
 import PreferencesChoice from './container/PreferencesChoice/PreferencesChoice';
@@ -15,6 +16,7 @@ const App = () => {
       <Routes>
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/preference" element={<PreferencesChoice />} />
+        <Route path="/intro" element={<Introduction />} />
         <Route path="/availbility" element={<AvailibilityChoice />} />
         <Route path="/feed" element={<Feed />} />        
         <Route path="/login" element={<Login />} />
