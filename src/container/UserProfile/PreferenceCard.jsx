@@ -52,7 +52,7 @@ const PreferenceCard = ({ user }) => {
             </div>
             <div className="px-6 py-4">
                 <button className="bg-purple-500 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-full" onClick={() => navigateProfile()}>
-                    Change
+                    Update
                 </button>
             </div>
         </div>

@@ -10,6 +10,7 @@ import PreferenceCard from './PreferenceCard';
 import UserCard from './UserCard';
 import { find, concat, reject } from 'lodash';
 import AvailibilityCard from '../Availibility/AvailibilityCard';
+import Settings from '../Settings/Settings';
 
 
 
@@ -44,21 +45,25 @@ const UserProfile = () => {
   useEffect(() => {
 
   }, [preference]);
-  
+
 
   return (
     <div>
       <Navbar></Navbar>
       <div className='flex place-content-center bg-indigo-500 p-20'>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 my-12 mx-12 w-2xl container px-2 mx-auto">
-            <aside>
+          <aside>
 
-              {currentUser && <UserIntroCard user={currentUser}></UserIntroCard>}
-              {availability && <AvailibilityCard user={currentUser} availability={availability}></AvailibilityCard>}
-            </aside>
+            {currentUser && <UserIntroCard user={currentUser}></UserIntroCard>}
+            {availability && <AvailibilityCard user={currentUser} availability={availability}></AvailibilityCard>}
+          </aside>
 
           <div>
-            {currentUser && <PreferenceCard user={currentUser}></PreferenceCard>}
+            <aside>
+
+              {currentUser && <PreferenceCard user={currentUser}></PreferenceCard>}
+              {currentUser && <Settings user={currentUser}></Settings>}
+            </aside>
           </div>
         </div>
       </div>

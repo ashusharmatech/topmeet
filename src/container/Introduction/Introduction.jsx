@@ -1,6 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../component/Navbar';
+import RadioGroup from '../../component/RadioGroup';
+import Textarea from '../../component/Textarea';
+import Textbox from '../../component/Textbox';
+import { accountStatusRadioButtons, frequencyRadioButtons, whatsappNotificationRadioData } from '../../constants/Options';
 import UserContext from '../../context/UserContext';
 
 
@@ -8,6 +12,9 @@ const Introduction = () => {
 
     const navigate = useNavigate();
     const { currentUser, fetchUserByGoogleId, fetchProfileByUserId, profile, saveProfile, updateProfile } = useContext(UserContext);
+
+    const classForInput = "r-slate-300 text-slate-600 relative bg-white bg-white rounded text-base border-0 shadow outline-none focus:outline-none focus:ring w-full";
+
 
     useEffect(() => {
         const _user = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear()
@@ -31,7 +38,6 @@ const Introduction = () => {
 
     const [state, setState] = useState({});
     const handleChange = e => {
-        console.log("Hn");
         const { name, value } = e.target;
         setState(prevState => ({
             ...prevState,
@@ -65,95 +71,7 @@ const Introduction = () => {
                     </div>
                     <div className="mt-5 md:mt-0 md:col-span-3">
                         <div className="shadow sm:rounded-md sm:overflow-hidden">
-                            <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
-                                <div className="grid grid-cols-3 gap-6">
-                                    <div className="col-span-2 sm:col-span-4">
-                                        <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                                            Name
-                                        </label>
-                                        <input
-                                            type="text"
-                                            name="name"
-                                            id="name"
-                                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                            value={currentUser?.name}
-                                            disabled
-                                        />
-                                    </div>
-
-                                    <div className="col-span-2 sm:col-span-3">
-                                        <label htmlFor="designation" className="block text-sm font-medium text-gray-700">
-                                            Designation
-                                        </label>
-                                        <input
-                                            type="text"
-                                            name="designation"
-                                            autoComplete="designation"
-                                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                            value={state.designation} onChange={handleChange}
-                                        />
-                                    </div>
-
-                                    <div className="col-span-6 sm:col-span-4">
-                                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                                            Email
-                                        </label>
-                                        <input
-                                            type="text"
-                                            name="email"
-                                            id="email-address"
-                                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                            value={state.email} onChange={handleChange}
-                                        />
-                                    </div>
-
-                                    <div className="col-span-6 sm:col-span-6 lg:col-span-2">
-                                        <label htmlFor="location" className="block text-sm font-medium text-gray-700">
-                                            City
-                                        </label>
-                                        <input
-                                            type="text"
-                                            name="location"
-                                            id="location"
-                                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                            value={state.location} onChange={handleChange}
-                                        />
-                                    </div>
-
-                                    <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                                        <label htmlFor="mobile" className="block text-sm font-medium text-gray-700">
-                                            Mobile
-                                        </label>
-                                        <input
-                                            type="text"
-                                            name="mobile"
-                                            id="mobile"
-                                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                            value={state.mobile} onChange={handleChange}
-                                        />
-                                    </div>
-
-                                </div>
-
-                                <div>
-                                    <label htmlFor="intro" className="block text-sm font-medium text-gray-700">
-                                        About
-                                    </label>
-                                    <div className="mt-1">
-                                        <textarea
-                                            id="intro"
-                                            name="intro"
-                                            rows={3}
-                                            className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
-                                            placeholder='I am ..'
-                                            value={state.intro} onChange={handleChange}
-                                        />
-                                    </div>
-                                    <p className="mt-2 text-sm text-gray-500">
-                                        Brief description for your profile. {JSON.stringify(currentUser)}
-                                    </p>
-                                </div>
-
+                            <div className=" bg-white space-y-6 sm:p-6">
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700">Photo</label>
                                     <div className="mt-1 flex items-center">
@@ -171,6 +89,42 @@ const Introduction = () => {
                                         </button>
                                     </div>
                                 </div>
+                                <div className="grid grid-cols-3 gap-6">
+                                    <div className="col-span-6 sm:col-span-6 lg:col-span-1">
+                                        <Textbox title="Name" name="name" id="name" value={currentUser?.name} disabled={true} />
+                                    </div>
+                                    <div className="col-span-6 sm:col-span-6 lg:col-span-1">
+                                        <Textbox title="Designtion" id="designation" name="designation" value={state.designation} onChange={handleChange} />
+                                    </div>
+                                    <div className="col-span-6 sm:col-span-6 lg:col-span-1">
+                                        <Textbox title="Company" id="company" name="company" value={state.company} onChange={handleChange} />
+                                    </div>
+                                    <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                                        <Textbox title="City" id="location" name="location" value={state.location} onChange={handleChange} />
+                                    </div>
+                                    <div className="lg:col-span-1">
+                                    </div>
+                                    <div className="col-span-6 sm:col-span-6 lg:col-span-1">
+                                        <Textbox title="Email" id="email" name="email" value={state.email} onChange={handleChange} />
+                                    </div>
+                                    <div className="col-span-6 sm:col-span-3 lg:col-span-1">
+                                        <Textbox title="Mobile" id="mobile" name="mobile" value={state.mobile} onChange={handleChange} />
+                                    </div>
+                                </div>
+                                <div>
+                                    <Textarea title="About" id="intro" name="intro" value={state.intro} placeholder='I am ..' subtext='Brief description for your profile.' onChange={handleChange} />
+                                </div>
+                                <div>
+                                    <RadioGroup title="Match me" selectedValue={state.matchRequestFrequency} onChange={handleChange} name="matchRequestFrequency" radioData={frequencyRadioButtons}></RadioGroup>
+                                </div>
+                                <div>
+                                    <RadioGroup title="Status" selectedValue={state.userStatus} onChange={handleChange} name="userStatus" radioData={accountStatusRadioButtons}></RadioGroup>
+                                </div>
+                                <div>
+                                    <RadioGroup title="Whatsapp Notifications" selectedValue={state.whatsappNotification} onChange={handleChange} name="whatsappNotification" radioData={whatsappNotificationRadioData}></RadioGroup>
+                                </div>
+                                
+
                             </div>
                             <div className="px-4 py-3 bg-gray-50  sm:px-6 gap-2">
                                 <button
@@ -188,7 +142,7 @@ const Introduction = () => {
 
             <div className="md:col-span-1">
                 <div className="px-4 sm:px-0">
-
+                    <p>{JSON.stringify(state)}</p>
                 </div>
             </div>
         </div>

@@ -34,7 +34,7 @@ const UserIntroCard = ({ user }) => {
             </div>
             <div className="flex first-letter:px-6 py-4 justify-center content-center">
                 <button className="bg-purple-500  hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-full "  onClick={() => navigateIntro()}>
-                    Change
+                    Update
                 </button>
             </div>
         </div>

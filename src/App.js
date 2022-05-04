@@ -6,6 +6,7 @@ import Introduction from './container/Introduction/Introduction';
 import Landing from './container/Landing/Landing';
 import Login from './container/Login/Login';
 import PreferencesChoice from './container/PreferencesChoice/PreferencesChoice';
+import Test from './container/Test/Test';
 import UserProfile from './container/UserProfile/UserProfile';
 import { UserProvider } from './context/UserContext';
 
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/availbility" element={<AvailibilityChoice />} />
         <Route path="/feed" element={<Feed />} />        
         <Route path="/login" element={<Login />} />
+        <Route path="/test" element={<Test />} />
         <Route path="/*" element={<Landing />} />
       </Routes>
     </UserProvider>
