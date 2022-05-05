@@ -1,11 +1,50 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { ref, uploadBytesResumable, getDownloadURL } from '@firebase/storage';
+import { storage } from '../../configs/firebaseConfig';
+import ProfilePhoto from './ProfilePhoto';
+import CropEasy from './CropEasy';
 
 const Test = () => {
+
+    const [progrss, setProgrss] = useState(0);
+
+    const uploadFile = (file) => {
+        if (!file) return;
+        const storageRef = ref(storage, `/files/${file.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        uploadTask.on("state_changed", (snapshot) => {
+            setProgrss((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        }, (err) => console.log(err),
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref)
+                    .then(url => console.log(url))
+            }
+        )
+    }
+
+    const formHandler = (e) => {
+        e.preventDefault();
+        const file = e.target[0].files[0];
+        uploadFile(file);
+
+
+
+    }
+
+
+
     return (
         <div class="flex justify-center">
-            <div class="form-switch">
-                <input class="appearance-none w-9 -ml-10 rounded-full float-left h-5 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm" type="checkbox" role="switch" id="flexSwitchCheckChecked"/>
-                <label class="inline-block text-gray-800" for="flexSwitchCheckChecked">Checked switch checkbox input</label>
+            {/* <div>
+                <form onSubmit={formHandler}>
+                    <input type="file"></input>
+                    <button type='submit'>Upload</button>
+                    <h3>{progrss}</h3>
+                </form>
+            </div> */}
+            <div>
+                <ProfilePhoto></ProfilePhoto>
             </div>
         </div>
     )
