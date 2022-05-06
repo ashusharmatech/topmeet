@@ -23,7 +23,7 @@ const UserIntroCard = ({ user }) => {
     return (
         <div className="bg-white shadow rounded-lg p-10">
             <div className="flex flex-col gap-1 text-center items-center">
-                <img className="h-32 w-32 bg-white p-2 rounded-full shadow mb-4" src={profile?.photoUrl} alt=""></img>
+                <img className="inline-block h-32 w-32 rounded-full overflow-hidden border-gry-400 border-4 bg-gray-100 shadow-md shadow-slate-900" src={profile?.photoUrl} alt=""></img>
                 <p className="font-semibold">{user.name}</p>
                 <div className="flex justify-center items-center text leading-normal text-gray-400">
                     {profile?.designation} at {profile?.company}

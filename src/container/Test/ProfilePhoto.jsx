@@ -39,12 +39,12 @@ const ProfilePhoto = ({ photoUrl , setPhotoUrl}) => {
 
     return (
         <>
-            <span className="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100" onClick={() => setShowModal(true)}>
+            <span className="inline-block h-32 w-32 rounded-full overflow-hidden border-gry-400 border-4 bg-gray-100 shadow-md shadow-slate-900" onClick={() => setShowModal(true)}>
                 {photoUrl ? (<img src={photoUrl}></img>)
                     : (
-                        <svg className="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>)}
+                        <img src="https://ui-avatars.com/api/?background=random&rounded=true&name=Ashutosh+Sharma"
+                        className="inline-block h-32 w-32 rounded-full overflow-hidden border-gry-400 border-4 bg-gray-100" />
+                    )}
             </span>
 
             {showModal ? (
@@ -72,7 +72,7 @@ const ProfilePhoto = ({ photoUrl , setPhotoUrl}) => {
                                     <div class="mb-4">
                                         <div>
                                             <label class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
-                                                <input type='file' accept="accept" onChange={handleFileChange} />
+                                                <input type='file' onChange={handleFileChange} accept="image/gif, image/png, image/jpeg" />
                                             </label>
                                         </div>
                                     </div>
